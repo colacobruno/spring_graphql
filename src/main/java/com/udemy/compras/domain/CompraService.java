@@ -26,7 +26,7 @@ public class CompraService {
     }
 
     @Transactional
-    @CacheEvict(value = "comprasByCliente", key = "#c.cliente.id")
+//    @CacheEvict(value = "comprasByCliente", key = "#c.cliente.id")
     public Compra save(Compra c) {
         if(c.getQuantidade() > 100){
             throw new DomainException("Não é possível fazer uma compra com mais de 100 itens");
@@ -47,7 +47,7 @@ public class CompraService {
         return rep.findAllByClienteAndQuantidade(c, quantidade);
     }
 
-    @Cacheable(value = "comprasByCliente", key = "#c.id")
+//    @Cacheable(value = "comprasByCliente", key = "#c.id")
     public List<Compra> findAllByCliente(Cliente c) {
         return rep.findAllByCliente(c);
     }

@@ -17,7 +17,7 @@ public class ClienteService {
         return clienteRepository.findById(id).orElse(null);
     }
 
-    @Cacheable("clientes")
+//    @Cacheable("clientes")
     public List<Cliente> findAll(){
         return clienteRepository.findAll();
     }
