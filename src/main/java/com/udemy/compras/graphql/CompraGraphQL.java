@@ -3,8 +3,11 @@ package com.udemy.compras.graphql;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.udemy.compras.domain.*;
+import com.udemy.compras.graphql.dto.CompraResumo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -26,9 +29,12 @@ public class CompraGraphQL implements GraphQLQueryResolver, GraphQLMutationResol
         return compraService.findById(id);
     }
 
-    public List<Compra> compras(){
-        return compraService.findAll();
+    public List<Compra> compras(int page, int size){
+        Pageable pageable = PageRequest.of(page,size);
+        return compraService.findAll(pageable);
     }
+
+    public List<CompraResumo> comprasRelatorio() { return compraService.findAllComprasRelatorio(); }
 
     public Compra saveCompra(CompraInput input){
         ModelMapper m = new ModelMapper();
